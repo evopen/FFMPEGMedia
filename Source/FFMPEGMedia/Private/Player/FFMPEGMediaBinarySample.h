@@ -16,18 +16,19 @@ class FFFMPEGMediaBinarySample
 	: public IMediaBinarySample
 {
 public:
-
 	/** Default constructor. */
 	FFFMPEGMediaBinarySample()
 		: Duration(FTimespan::Zero())
-		, Time(FTimespan::Zero())
-	{ }
+		  , Time(FTimespan::Zero())
+	{
+	}
 
 	/** Virtual destructor. */
-	virtual ~FFFMPEGMediaBinarySample() { }
+	virtual ~FFFMPEGMediaBinarySample()
+	{
+	}
 
 public:
-
 	/**
 	 * Initialize the sample.
 	 *
@@ -57,7 +58,6 @@ public:
 	}
 
 public:
-
 	//~ IMediaBinarySample interface
 
 	virtual const void* GetData() override
@@ -81,7 +81,6 @@ public:
 	}
 
 private:
-
 	/** The sample's data buffer. */
 	TArray<uint8> Buffer;
 

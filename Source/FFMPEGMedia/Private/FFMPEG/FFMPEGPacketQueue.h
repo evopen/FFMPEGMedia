@@ -10,41 +10,38 @@ struct AVPacket;
 class FFMPEGPacketQueue
 {
 public:
-    FFMPEGPacketQueue();
-    ~FFMPEGPacketQueue();
+	FFMPEGPacketQueue();
+	~FFMPEGPacketQueue();
 
-    int Get(AVPacket *pkt, int block, int *serial);
-    int Put(AVPacket *pkt);
-    int PutFlush();
-    int PutNullPacket(int stream_index);
-    void Start();
-    void Abort();
-    void Flush();
-    int GetSize();
-    bool IsAbortRequest();
-    int GetSerial();
-    int GetNumPackets();
-    int GetDuration();
-    static bool IsFlushPacket( void* data);
+	int Get(AVPacket* pkt, int block, int* serial);
+	int Put(AVPacket* pkt);
+	int PutFlush();
+	int PutNullPacket(int stream_index);
+	void Start();
+	void Abort();
+	void Flush();
+	int GetSize();
+	bool IsAbortRequest();
+	int GetSerial();
+	int GetNumPackets();
+	int GetDuration();
+	static bool IsFlushPacket(void* data);
 
 protected:
+	AVPacket* FlushPkt();
+	int PutPrivate(AVPacket* pkt);
 
-    AVPacket* FlushPkt();
-    int PutPrivate(AVPacket *pkt);
+	static AVPacket* flush_pkt_queue;
 
-    static AVPacket* flush_pkt_queue;
+	MyAVPacketList *first_pkt, *last_pkt;
+	int nb_packets;
+	int size;
+	int64_t duration;
+	bool abort_request;
+	int serial;
 
-    MyAVPacketList *first_pkt, *last_pkt;
-    int nb_packets;
-    int size;
-    int64_t duration;
-    bool abort_request;
-    int serial;
-    
-    FCriticalSection mutex;
-    CondWait cond;
+	FCriticalSection mutex;
+	CondWait cond;
 
-    friend class FFMPEGClock;
-
+	friend class FFMPEGClock;
 };
-

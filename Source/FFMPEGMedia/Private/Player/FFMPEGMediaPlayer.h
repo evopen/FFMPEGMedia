@@ -5,7 +5,6 @@
 #include "FFMPEGMediaPrivate.h"
 
 
-
 #include "Containers/UnrealString.h"
 #include "Containers/Queue.h"
 #include "IMediaCache.h"
@@ -27,12 +26,11 @@ struct AVClass;
  */
 class FFFMPEGMediaPlayer
 	: public IMediaPlayer
-	, protected IMediaCache
-    , protected IMediaView
-    
+	  , protected IMediaCache
+	  , protected IMediaView
+
 {
 public:
-
 	/**
 	 * Create and initialize a new instance.
 	 *
@@ -44,7 +42,6 @@ public:
 	virtual ~FFFMPEGMediaPlayer();
 
 public:
-
 	//~ IMediaPlayer interface
 
 	virtual void Close() override;
@@ -59,16 +56,16 @@ public:
 	virtual IMediaTracks& GetTracks() override;
 	virtual FString GetUrl() const override;
 	virtual IMediaView& GetView() override;
-    virtual bool Open(const FString& Url, const IMediaOptions* Options, const FMediaPlayerOptions* PlayerOptions) override;
+	virtual bool Open(const FString& Url, const IMediaOptions* Options,
+	                  const FMediaPlayerOptions* PlayerOptions) override;
 	virtual bool Open(const FString& Url, const IMediaOptions* Options) override;
-	virtual bool Open(const TSharedRef<FArchive, ESPMode::ThreadSafe>& Archive, const FString& OriginalUrl, const IMediaOptions* Options) override;
+	virtual bool Open(const TSharedRef<FArchive, ESPMode::ThreadSafe>& Archive, const FString& OriginalUrl,
+	                  const IMediaOptions* Options) override;
 	virtual void TickFetch(FTimespan DeltaTime, FTimespan Timecode) override;
 	virtual void TickInput(FTimespan DeltaTime, FTimespan Timecode) override;
 
 
-
 protected:
-
 	/**
 	 * Initialize the native AvPlayer instance.
 	 *
@@ -77,53 +74,47 @@ protected:
 	 * @param Precache Whether to precache media into RAM if InURL is a local file.
 	 * @return true on success, false otherwise.
 	 */
-	bool InitializePlayer(const TSharedPtr<FArchive, ESPMode::ThreadSafe>& Archive, const FString& Url, bool Precache, const FMediaPlayerOptions* PlayerOptions);
+	bool InitializePlayer(const TSharedPtr<FArchive, ESPMode::ThreadSafe>& Archive, const FString& Url, bool Precache,
+	                      const FMediaPlayerOptions* PlayerOptions);
 
-    
 
 private:
-
-    
 	/** The media event handler. */
 	IMediaEventSink& EventSink;
 
 	/** The URL of the currently opened media. */
 	FString MediaUrl;
 
-    /** Tasks to be executed on the player thread. */
-    TQueue<TFunction<void()>> PlayerTasks;
+	/** Tasks to be executed on the player thread. */
+	TQueue<TFunction<void()>> PlayerTasks;
 
-	
+
 	/** Media streams collection. */
 	TSharedPtr<FFFMPEGMediaTracks, ESPMode::ThreadSafe> Tracks;
 
-    /** FFMPEG Callbacks */
-    /** Returns 1 when we would like to stop the application */
-    static int DecodeInterruptCallback(void *ctx);
+	/** FFMPEG Callbacks */
+	/** Returns 1 when we would like to stop the application */
+	static int DecodeInterruptCallback(void* ctx);
 
-    /** This is called when it's reading an Archive instead of an url*/
-    static int ReadtStreamCallback(void* ptr, uint8_t* buf, int buf_size);
+	/** This is called when it's reading an Archive instead of an url*/
+	static int ReadtStreamCallback(void* ptr, uint8_t* buf, int buf_size);
 
-    /** This is called when it's reading an Archive instead of an url*/
-    static int64_t SeekStreamCallback(void *opaque, int64_t offset, int whence);
+	/** This is called when it's reading an Archive instead of an url*/
+	static int64_t SeekStreamCallback(void* opaque, int64_t offset, int whence);
 
-    /** FFMPEG Functions */
+	/** FFMPEG Functions */
 
-    AVFormatContext*  ReadContext(const TSharedPtr<FArchive, ESPMode::ThreadSafe>& Archive, const FString& Url, bool Precache);
-    
-    static void dumpOptions(const AVClass *clazz);
-    
-    void dumpFFMPEGInfo();
+	AVFormatContext* ReadContext(const TSharedPtr<FArchive, ESPMode::ThreadSafe>& Archive, const FString& Url,
+	                             bool Precache);
 
-    /** FFMPEG Structs */
-    AVFormatContext     *FormatContext;
-    AVIOContext         *IOContext;        
-    bool                 stopped;
+	static void dumpOptions(const AVClass* clazz);
 
-    TSharedPtr<FArchive, ESPMode::ThreadSafe> CurrentArchive;
-    
+	void dumpFFMPEGInfo();
 
+	/** FFMPEG Structs */
+	AVFormatContext* FormatContext;
+	AVIOContext* IOContext;
+	bool stopped;
+
+	TSharedPtr<FArchive, ESPMode::ThreadSafe> CurrentArchive;
 };
-
-
-

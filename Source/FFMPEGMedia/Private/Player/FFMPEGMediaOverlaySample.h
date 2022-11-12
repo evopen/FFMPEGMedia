@@ -16,18 +16,19 @@ class FFFMPEGMediaOverlaySample
 	: public IMediaOverlaySample
 {
 public:
-
 	/** Default constructor. */
 	FFFMPEGMediaOverlaySample()
 		: Duration(FTimespan::Zero())
-		, Time(FTimespan::Zero())
-	{ }
+		  , Time(FTimespan::Zero())
+	{
+	}
 
 	/** Virtual destructor. */
-	virtual ~FFFMPEGMediaOverlaySample() { }
+	virtual ~FFFMPEGMediaOverlaySample()
+	{
+	}
 
 public:
-
 	/**
 	 * Initialize the sample.
 	 *
@@ -37,7 +38,7 @@ public:
 	 */
 	bool Initialize(
 		const char* InBuffer,
-        FVector2D InPosition,
+		FVector2D InPosition,
 		FTimespan InTime,
 		FTimespan InDuration)
 	{
@@ -75,13 +76,12 @@ public:
 		Duration = (InDuration < FTimespan::Zero()) ? FTimespan::MaxValue() : InDuration;
 		Text = FText::FromString(StrippedText);
 		Time = InTime;
-        Position = InPosition;
+		Position = InPosition;
 
 		return true;
 	}
 
 public:
-
 	//~ IMediaOverlaySample interface
 
 	virtual FTimespan GetDuration() const override
@@ -110,7 +110,6 @@ public:
 	}
 
 private:
-
 	/** The duration for which the sample is valid. */
 	FTimespan Duration;
 
@@ -120,7 +119,6 @@ private:
 	/** Presentation time for which the sample was generated. */
 	FMediaTimeStamp Time;
 
-    /** Position for the subtitle */
-    FVector2D Position;
-
+	/** Position for the subtitle */
+	FVector2D Position;
 };

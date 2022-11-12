@@ -16,25 +16,26 @@
  */
 class FFFMPEGMediaTextureSample
 	: public IMediaTextureSample
-	, public IMediaPoolable
+	  , public IMediaPoolable
 {
 public:
-
 	/** Default constructor. */
 	FFFMPEGMediaTextureSample()
 		: Dim(FIntPoint::ZeroValue)
-		, Duration(FTimespan::Zero())
-		, OutputDim(FIntPoint::ZeroValue)
-		, SampleFormat(EMediaTextureSampleFormat::Undefined)
-		, Stride(0)
-		, Time(FTimespan::Zero())
-	{ }
+		  , Duration(FTimespan::Zero())
+		  , OutputDim(FIntPoint::ZeroValue)
+		  , SampleFormat(EMediaTextureSampleFormat::Undefined)
+		  , Stride(0)
+		  , Time(FTimespan::Zero())
+	{
+	}
 
 	/** Virtual destructor. */
-	virtual ~FFFMPEGMediaTextureSample() { }
+	virtual ~FFFMPEGMediaTextureSample()
+	{
+	}
 
 public:
-
 	/**
 	 * Initialize the sample.
 	 *
@@ -65,7 +66,7 @@ public:
 			return false;
 		}
 
-       
+
 		Buffer.Reset(InSize);
 		Buffer.Append((uint8*)InBuffer, InSize);
 		Duration = InDuration;
@@ -78,7 +79,6 @@ public:
 	}
 
 public:
-
 	//~ IMediaTextureSample interface
 
 	virtual const void* GetBuffer() override
@@ -134,7 +134,6 @@ public:
 	}
 
 private:
-
 	/** The sample's data buffer. */
 	TArray<uint8> Buffer;
 
@@ -159,4 +158,6 @@ private:
 
 
 /** Implements a pool for WMF texture samples. */
-class FFFMPEGMediaTextureSamplePool : public TMediaObjectPool<FFFMPEGMediaTextureSample> { };
+class FFFMPEGMediaTextureSamplePool : public TMediaObjectPool<FFFMPEGMediaTextureSample>
+{
+};

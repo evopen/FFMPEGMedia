@@ -16,7 +16,6 @@ class IFFMPEGMediaModule
 	: public IModuleInterface
 {
 public:
-
 	/**
 	 * Creates a Windows Media Foundation based media player.
 	 *
@@ -25,12 +24,13 @@ public:
 	 */
 	virtual TSharedPtr<IMediaPlayer, ESPMode::ThreadSafe> CreatePlayer(IMediaEventSink& EventSink) = 0;
 
-    virtual TArray<FString> GetSupportedFileExtensions() = 0;
+	virtual TArray<FString> GetSupportedFileExtensions() = 0;
 
-    virtual TArray<FString> GetSupportedUriSchemes() = 0;
+	virtual TArray<FString> GetSupportedUriSchemes() = 0;
 
 public:
-
 	/** Virtual destructor. */
-	virtual ~IFFMPEGMediaModule() { }
+	virtual ~IFFMPEGMediaModule()
+	{
+	}
 };

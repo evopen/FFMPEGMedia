@@ -18,11 +18,11 @@
 #endif
 
 #if WITH_EDITOR
-	#include "ISettingsModule.h"
-	#include "Templates/SharedPointer.h"
-	#include "UObject/Class.h"
-	#include "UObject/WeakObjectPtr.h"
-	#include "FFMPEGMediaSettings.h"
+#include "ISettingsModule.h"
+#include "Templates/SharedPointer.h"
+#include "UObject/Class.h"
+#include "UObject/WeakObjectPtr.h"
+#include "FFMPEGMediaSettings.h"
 #endif
 
 #include "../../FFMPEGMedia/Public/IFFMPEGMediaModule.h"
@@ -38,18 +38,19 @@ DEFINE_LOG_CATEGORY(LogFFMPEGMediaFactory);
  */
 class FFFMPEGMediaFactoryModule
 	: public IMediaPlayerFactory
-	, public IModuleInterface
+	  , public IModuleInterface
 {
 public:
-
 	/** Default constructor. */
-	FFFMPEGMediaFactoryModule() { }
+	FFFMPEGMediaFactoryModule()
+	{
+	}
 
 public:
-
 	//~ IMediaPlayerFactory interface
 
-	virtual bool CanPlayUrl(const FString& Url, const IMediaOptions* Options, TArray<FText>* OutWarnings, TArray<FText>* OutErrors) const override
+	virtual bool CanPlayUrl(const FString& Url, const IMediaOptions* Options, TArray<FText>* OutWarnings,
+	                        TArray<FText>* OutErrors) const override
 	{
 		FString Scheme;
 		FString Location;
@@ -69,7 +70,8 @@ public:
 		{
 			if (OutErrors != nullptr)
 			{
-				OutErrors->Add(FText::Format(LOCTEXT("SchemeNotSupported", "The URI scheme '{0}' is not supported"), FText::FromString(Scheme)));
+				OutErrors->Add(FText::Format(
+					LOCTEXT("SchemeNotSupported", "The URI scheme '{0}' is not supported"), FText::FromString(Scheme)));
 			}
 
 			return false;
@@ -84,7 +86,9 @@ public:
 			{
 				if (OutErrors != nullptr)
 				{
-					OutErrors->Add(FText::Format(LOCTEXT("ExtensionNotSupported", "The file extension '{0}' is not supported"), FText::FromString(Extension)));
+					OutErrors->Add(FText::Format(
+						LOCTEXT("ExtensionNotSupported", "The file extension '{0}' is not supported"),
+						FText::FromString(Extension)));
 				}
 
 				return false;
@@ -135,33 +139,30 @@ public:
 	virtual bool SupportsFeature(EMediaFeature Feature) const override
 	{
 		return ((Feature == EMediaFeature::AudioSamples) ||
-				(Feature == EMediaFeature::AudioTracks) ||
-				(Feature == EMediaFeature::CaptionTracks) ||
-				(Feature == EMediaFeature::MetadataTracks) ||
-				(Feature == EMediaFeature::OverlaySamples) ||
-				(Feature == EMediaFeature::SubtitleTracks) ||
-				(Feature == EMediaFeature::VideoSamples) ||
-				(Feature == EMediaFeature::VideoTracks));
+			(Feature == EMediaFeature::AudioTracks) ||
+			(Feature == EMediaFeature::CaptionTracks) ||
+			(Feature == EMediaFeature::MetadataTracks) ||
+			(Feature == EMediaFeature::OverlaySamples) ||
+			(Feature == EMediaFeature::SubtitleTracks) ||
+			(Feature == EMediaFeature::VideoSamples) ||
+			(Feature == EMediaFeature::VideoTracks));
 	}
 
 public:
-
 	//~ IModuleInterface interface
 
 	virtual void StartupModule() override
 	{
+		auto FFMPEGMediaModule = FModuleManager::LoadModulePtr<IFFMPEGMediaModule>("FFMPEGMedia");
 
-        auto FFMPEGMediaModule = FModuleManager::LoadModulePtr<IFFMPEGMediaModule>("FFMPEGMedia");
-
-        SupportedFileExtensions.Append(FFMPEGMediaModule->GetSupportedFileExtensions());
-        SupportedUriSchemes.Append(FFMPEGMediaModule->GetSupportedUriSchemes() );
+		SupportedFileExtensions.Append(FFMPEGMediaModule->GetSupportedFileExtensions());
+		SupportedUriSchemes.Append(FFMPEGMediaModule->GetSupportedUriSchemes());
 
 		// supported platforms
 		SupportedPlatforms.Add(TEXT("Windows"));
 		SupportedPlatforms.Add(TEXT("Mac"));
-        SupportedPlatforms.Add(TEXT("Android"));
+		SupportedPlatforms.Add(TEXT("Linux"));
 
-	
 
 #if WITH_EDITOR
 		// register settings
@@ -170,9 +171,10 @@ public:
 		if (SettingsModule != nullptr)
 		{
 			SettingsModule->RegisterSettings("Project", "Plugins", "FFMPEGMedia",
-				LOCTEXT("FFMPEGMediaSettingsName", "FFMPEG Media"),
-				LOCTEXT("FFMPEGMediaSettingsDescription", "Configure the FFMPEG Media plug-in."),
-				GetMutableDefault<UFFMPEGMediaSettings>()
+			                                 LOCTEXT("FFMPEGMediaSettingsName", "FFMPEG Media"),
+			                                 LOCTEXT("FFMPEGMediaSettingsDescription",
+			                                         "Configure the FFMPEG Media plug-in."),
+			                                 GetMutableDefault<UFFMPEGMediaSettings>()
 			);
 		}
 #endif //WITH_EDITOR
@@ -208,7 +210,6 @@ public:
 	}
 
 private:
-
 	/** List of supported media file types. */
 	TArray<FString> SupportedFileExtensions;
 

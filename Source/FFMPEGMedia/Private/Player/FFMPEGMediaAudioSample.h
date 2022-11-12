@@ -16,23 +16,24 @@
  */
 class FFFMPEGMediaAudioSample
 	: public IMediaAudioSample
-	, public IMediaPoolable
+	  , public IMediaPoolable
 {
 public:
-
 	/** Default constructor. */
 	FFFMPEGMediaAudioSample()
 		: Channels(0)
-		, Duration(FTimespan::Zero())
-		, SampleRate(0)
-		, Time(FTimespan::Zero())
-	{ }
+		  , Duration(FTimespan::Zero())
+		  , SampleRate(0)
+		  , Time(FTimespan::Zero())
+	{
+	}
 
 	/** Virtual destructor. */
-	virtual ~FFFMPEGMediaAudioSample() { }
+	virtual ~FFFMPEGMediaAudioSample()
+	{
+	}
 
 public:
-
 	/**
 	 * Initialize the sample.
 	 *
@@ -66,7 +67,6 @@ public:
 	}
 
 public:
-
 	//~ IMediaAudioSample interface
 
 	virtual const void* GetBuffer() override
@@ -105,7 +105,6 @@ public:
 	}
 
 private:
-
 	/** The sample's data buffer. */
 	TArray<uint8> Buffer;
 
@@ -124,4 +123,6 @@ private:
 
 
 /** Implements a pool for WMF audio sample objects. */
-class FFFMPEGMediaAudioSamplePool : public TMediaObjectPool<FFFMPEGMediaAudioSample> { };
+class FFFMPEGMediaAudioSamplePool : public TMediaObjectPool<FFFMPEGMediaAudioSample>
+{
+};

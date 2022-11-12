@@ -9,22 +9,23 @@
 
 
 UENUM()
-enum class ESynchronizationType : uint8 {
-    AudioMaster = 0,
-    VideoMaster,
-    ExternalClock
+enum class ESynchronizationType : uint8
+{
+	AudioMaster = 0,
+	VideoMaster,
+	ExternalClock
 };
 
 UENUM()
-enum class ERTSPTransport : uint8 {
-    Default = 0,
-    Udp,
-    UdpMulticast,
-    Tcp,
-    Http,
-    Https
+enum class ERTSPTransport : uint8
+{
+	Default = 0,
+	Udp,
+	UdpMulticast,
+	Tcp,
+	Http,
+	Https
 };
-
 
 
 /**
@@ -37,42 +38,39 @@ class FFMPEGMEDIAFACTORY_API UFFMPEGMediaSettings
 	GENERATED_BODY()
 
 public:
-	 
 	/** Default constructor. */
 	UFFMPEGMediaSettings();
-   
+
 
 public:
-
-	
 	UPROPERTY(config, EditAnywhere, Category=Media)
 	bool UseInfiniteBuffer;
-    
 
-    UPROPERTY(config, EditAnywhere, Category = Media)
-    bool AllowFrameDrop;
 
-    UPROPERTY(config, EditAnywhere, Category = Media)
-    bool UseHardwareAcceleratedCodecs;
+	UPROPERTY(config, EditAnywhere, Category = Media)
+	bool AllowFrameDrop;
 
-    UPROPERTY(config, EditAnywhere, Category = Media)
-    bool DisableAudio;
+	UPROPERTY(config, EditAnywhere, Category = Media)
+	bool UseHardwareAcceleratedCodecs;
 
-    UPROPERTY(config, EditAnywhere, Category=Media)
+	UPROPERTY(config, EditAnywhere, Category = Media)
+	bool DisableAudio;
+
+	UPROPERTY(config, EditAnywhere, Category=Media)
 	bool ZeroLatencyStreaming;
-    
-    UPROPERTY(config, EditAnywhere, Category = Media)
-    ERTSPTransport RtspTransport;
 
-    //Allow non spec compliant speedup tricks.
-    UPROPERTY(config, EditAnywhere, Category = Media)
-    bool SpeedUpTricks;
+	UPROPERTY(config, EditAnywhere, Category = Media)
+	ERTSPTransport RtspTransport;
 
-    UPROPERTY(config, EditAnywhere, Category = Media, meta = (UIMin=0, UIMax = 16))
-    int AudioThreads;
+	//Allow non spec compliant speedup tricks.
+	UPROPERTY(config, EditAnywhere, Category = Media)
+	bool SpeedUpTricks;
 
-    UPROPERTY(config, EditAnywhere, Category = Media, meta = (UIMin=0, UIMax = 16))
-    int VideoThreads;
+	UPROPERTY(config, EditAnywhere, Category = Media, meta = (UIMin=0, UIMax = 16))
+	int AudioThreads;
+
+	UPROPERTY(config, EditAnywhere, Category = Media, meta = (UIMin=0, UIMax = 16))
+	int VideoThreads;
 
 	UPROPERTY(config, EditAnywhere, Category = Media)
 	ESynchronizationType SyncType;

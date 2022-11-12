@@ -5,16 +5,15 @@
 #include <chrono>
 
 
-
-    
-class CondWait {
+class CondWait
+{
 public:
-    CondWait();
-    ~CondWait();
-    void signal();
-    int wait(FCriticalSection& mutex);
-    int waitTimeout(FCriticalSection& mutex, unsigned int ms);
+	CondWait();
+	~CondWait();
+	void signal();
+	int wait(FCriticalSection& mutex);
+	int waitTimeout(FCriticalSection& mutex, unsigned int ms);
 
 private:
-    FEvent* event;
+	FEvent* event;
 };

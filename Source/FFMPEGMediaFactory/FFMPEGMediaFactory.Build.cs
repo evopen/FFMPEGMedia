@@ -11,30 +11,35 @@ namespace UnrealBuildTool.Rules
 			OptimizeCode = CodeOptimization.Never;
 
 			DynamicallyLoadedModuleNames.AddRange(
-				new string[] {
+				new string[]
+				{
 					"Media",
 				});
 
 			PrivateDependencyModuleNames.AddRange(
-				new string[] {
+				new string[]
+				{
 					"Core",
 					"CoreUObject",
 					"MediaAssets",
 				});
 
 			PrivateIncludePathModuleNames.AddRange(
-				new string[] {
+				new string[]
+				{
 					"Media",
 					"FFMPEGMedia",
 				});
 
 			PrivateIncludePaths.AddRange(
-				new string[] {
+				new string[]
+				{
 					"FFMPEGMediaFactory/Private",
 				});
 
 			PublicDependencyModuleNames.AddRange(
-				new string[] {
+				new string[]
+				{
 					"Core",
 					"CoreUObject",
 				});
@@ -45,8 +50,7 @@ namespace UnrealBuildTool.Rules
 				PrivateIncludePathModuleNames.Add("Settings");
 			}
 
-			if ((Target.Platform == UnrealTargetPlatform.Win32) ||
-				(Target.Platform == UnrealTargetPlatform.Win64))
+			if (Target.Platform == UnrealTargetPlatform.Win64 || Target.Platform == UnrealTargetPlatform.Linux)
 			{
 				DynamicallyLoadedModuleNames.Add("FFMPEGMedia");
 			}

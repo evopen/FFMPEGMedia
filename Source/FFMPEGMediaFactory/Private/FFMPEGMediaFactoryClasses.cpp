@@ -4,14 +4,15 @@
 
 
 UFFMPEGMediaSettings::UFFMPEGMediaSettings()
-    : UseInfiniteBuffer (false)
-	, AllowFrameDrop(true)
-	, UseHardwareAcceleratedCodecs (true)
-    , DisableAudio (false)
-    , ZeroLatencyStreaming(false)
-    , RtspTransport(ERTSPTransport::Default)
-    , SpeedUpTricks (false)
-    , AudioThreads(0)
-    , VideoThreads(0)
-    , SyncType  (ESynchronizationType::AudioMaster)
-{ }
+	: UseInfiniteBuffer(false)
+	  , AllowFrameDrop(true)
+	  , UseHardwareAcceleratedCodecs(true)
+	  , DisableAudio(false)
+	  , ZeroLatencyStreaming(false)
+	  , RtspTransport(ERTSPTransport::Default)
+	  , SpeedUpTricks(false)
+	  , AudioThreads(0)
+	  , VideoThreads(0)
+	  , SyncType(ESynchronizationType::AudioMaster)
+{
+}
