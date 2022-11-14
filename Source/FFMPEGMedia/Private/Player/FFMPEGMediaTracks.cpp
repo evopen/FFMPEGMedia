@@ -1106,7 +1106,7 @@ TRangeSet<float> FFFMPEGMediaTracks::GetSupportedRates(EMediaRateThinning Thinni
 	//Result.Add(TRange<float>(PlayerItem.canPlayFastReverse ? -8.0f : -1.0f, 0.0f));
 	//Result.Add(TRange<float>(0.0f, PlayerItem.canPlayFastForward ? 8.0f : 0.0f));
 
-	Result.Add(TRange<float>(0.0f, 1.0f));
+	Result.Add(TRange<float>::Inclusive(0.0f, 1.0f));
 
 	return Result;
 }
