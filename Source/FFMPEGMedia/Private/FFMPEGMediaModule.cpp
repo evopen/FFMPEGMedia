@@ -261,10 +261,18 @@ protected:
 #else
         LibDir = FPaths::Combine(*BaseDir, TEXT("ThirdParty/ffmpeg/bin/vs/win32"));
 #endif
+#elif PLATFORM_LINUX
+		LibDir = FPaths::Combine(*BaseDir, TEXT("ThirdParty/ffmpeg/lib/linux"));
+		extension = TEXT(".so");
+		prefix="lib";
 #endif
 		if (!LibDir.IsEmpty())
 		{
+#if PLATFORM_LINUX
+			FString LibraryPath = FPaths::Combine(*LibDir, prefix + name + extension);
+#else
 			FString LibraryPath = FPaths::Combine(*LibDir, prefix + name + separator + version + extension);
+#endif
 			return FPlatformProcess::GetDllHandle(*LibraryPath);
 		}
 		return nullptr;

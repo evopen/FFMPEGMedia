@@ -102,13 +102,13 @@ public class FFMPEGMedia : ModuleRules
    
 			System.Console.WriteLine("... LibrariesPath -> " + LibrariesPath);
 
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libavcodec.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libavdevice.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libavfilter.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libavformat.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libavutil.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libswresample.so"));
-			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libswscale.so"));
+			string[] ExternalLib = {"libavcodec.so", "libavdevice.so", "libavfilter.so", "libavformat.so", "libavutil.so", "libswresample.so", "libswscale.so" };
+			foreach (string lib in ExternalLib)
+			{
+				PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, lib));
+				PublicDelayLoadDLLs.Add(lib);
+				RuntimeDependencies.Add(Path.Combine(LibrariesPath, lib), StagedFileType.NonUFS);
+			}
 
 		}
 
