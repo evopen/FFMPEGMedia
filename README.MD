@@ -2,6 +2,7 @@ FFMPEG Media Plugin for unreal engine
 ===================================
 
 A plugin that let's you use the FFMPEG library as media player
+WARNING: Video not work if DisableAudio = false.
 
 
 ## Features:
