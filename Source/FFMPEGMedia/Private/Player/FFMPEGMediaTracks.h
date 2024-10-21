@@ -3,10 +3,21 @@
 #pragma once
 
 
+#include <functional>
+
+
 #include "FFMPEGMediaSettings.h"
 #include "FFMPEGMediaPrivate.h"
 #include "FFMPEGFrameQueue.h"
 #include "FFMPEGClock.h"
+#include "IMediaEventSink.h"
+
+extern "C" {
+#include "libavutil/avutil.h"
+#include "libavcodec/avcodec.h"
+#include "libavformat/avformat.h"
+}
+
 
 
 #include "CoreTypes.h"

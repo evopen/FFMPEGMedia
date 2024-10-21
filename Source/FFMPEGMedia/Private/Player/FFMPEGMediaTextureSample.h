@@ -73,7 +73,7 @@ public:
 		Dim = InDim;
 		SampleFormat = EMediaTextureSampleFormat::CharBGRA;
 		Stride = InStride;
-		Time = InTime;
+		Time.Time = InTime;
 
 		return true;
 	}
