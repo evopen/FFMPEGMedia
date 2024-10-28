@@ -1172,7 +1172,7 @@ bool FFFMPEGMediaTracks::AddStreamToTracks(uint32 StreamIndex, bool IsVideoDevic
 
 	if (MediaType != AVMEDIA_TYPE_VIDEO && MediaType != AVMEDIA_TYPE_AUDIO && MediaType != AVMEDIA_TYPE_SUBTITLE)
 	{
-		UE_LOG(LogFFMPEGMedia, Verbose, TEXT("Tracks %p: Unsupported major type %s of stream %i"), this,
+		UE_LOG(LogFFMPEGMedia, Verbose, TEXT("Tracks %p: Unsupported major type %hs of stream %i"), this,
 		       av_get_media_type_string(MediaType), StreamIndex);
 		OutInfo += TEXT("\tUnsupported stream type\n");
 
@@ -3047,9 +3047,6 @@ int FFFMPEGMediaTracks::VideoThread()
 			return 0;
 		}
 	}
-
-	av_frame_free(&frame);
-	return 0;
 }
 
 

@@ -61,7 +61,7 @@ public:
 		Channels = InChannels;
 		Duration = InDuration;
 		SampleRate = InSampleRate;
-		Time = InTime;
+		Time.Time = InTime;
 
 		return true;
 	}
